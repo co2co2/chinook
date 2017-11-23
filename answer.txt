@@ -1,0 +1,57 @@
+
+1.
+Artist.where(name: 'Queen')
+=> #<ActiveRecord::Relation [#<Artist id: 51, name: "Queen", created_at: "2006-01-08 22:57:01", updated_at: "2014-01-29 22:10:22">]>
+Album.where(artist_id:51)
+=> #<ActiveRecord::Relation [#<Album id: 36, artist_id: 51, title: "Greatest Hits II", created_at: "2008-01-30 14:00:12", updated_at: "2014-01-29 22:14:02">, #<Album id: 185, artist_id: 51, title: "Greatest Hits I", created_at: "2007-12-29 12:02:13", updated_at: "2014-01-29 22:14:02">, #<Album id: 186, artist_id: 51, title: "News Of The World", created_at: "2010-06-23 20:50:06", updated_at: "2014-01-29 22:14:02">]>
+irb(main):030:0>
+
+2.
+MediaType.where(name: "Protected MPEG-4 video file")
+=> #<ActiveRecord::Relation [#<MediaType id: 3, name: "Protected MPEG-4 video file", created_at: "2007-12-07 13:17:17", updated_at: "2014-01-29 22:14:22">]>
+
+Track.where(media_type_id: 3).count
+=> 214
+
+3.
+Genre.where(name: "Hip Hop/Rap")
+=> #<ActiveRecord::Relation [#<Genre id: 17, name: "Hip Hop/Rap", created_at: "2013-01-20 02:04:31", updated_at: "2014-01-29 22:14:08">]>
+
+4.
+Track.where(genre_id: 17).count
+=> 35
+
+
+5.
+Track.sum("milliseconds")
+=> 1378575827
+
+6.
+MediaType.where(name: "MPEG audio file")
+=> #<ActiveRecord::Relation [#<MediaType id: 1, name: "MPEG audio file", created_at: "2006-11-24 08:21:33", updated_at: "2014-01-29 22:14:22">]>
+
+
+Track.where(media_type_id: 1).maximum("unit_price")
+=> 0.99e0
+
+7.
+a = Track.where(media_type_id: 1 , unit_price: 0.99)
+a.each do |t|
+puts t.name
+end
+
+8.
+Artist.order(created_at: :asc)
+
+=> Artist name: "Les Arts Florissants & William Christie", created_at: "2004-02-13 06:08:36",
+Artist name: "Funk Como Le Gusta", created_at: "2004-02-18 04:05:47",
+ 51
+
+9.Genre.where(name: "Electronica/Dance")
+=> #<ActiveRecord::Relation [#<Genre id: 15, name: "Electronica/Dance", created_at: "2008-05-25 12:13:42", updated_at: "2014-01-29 22:14:08">]>
+
+Track.where(genre_id: 15).minimum("unit_price")
+=> 0.99e0
+
+
+10.Track.where(media_type_id:1 , genre_id:15)
